@@ -1,0 +1,33 @@
+name: "NYT Crossword to reMarkable"
+description: "Downloads the daily New York Times crossword PDF and uploads it to reMarkable Cloud"
+author: "pholleran"
+
+branding:
+  icon: "file-text"
+  color: "blue"
+
+inputs:
+  device_token:
+    description: "reMarkable device token for authentication"
+    required: true
+  puzzle_date:
+    description: "Puzzle date to download in YYYY-MM-DD format; defaults to today in America/New_York"
+    required: false
+    default: ""
+  remarkable_folder:
+    description: "Folder name in reMarkable Cloud for uploaded PDFs"
+    required: false
+    default: "NYT Crosswords"
+  rmapi_timeout:
+    description: "Seconds to wait for each rmapi command"
+    required: false
+    default: "120"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    DEVICE_TOKEN: ${{ inputs.device_token }}
+    PUZZLE_DATE: ${{ inputs.puzzle_date }}
+    REMARKABLE_FOLDER: ${{ inputs.remarkable_folder }}
+    RMAPI_TIMEOUT: ${{ inputs.rmapi_timeout }}
