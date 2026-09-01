@@ -8,6 +8,7 @@ from tempfile import NamedTemporaryFile
 import requests
 
 from config import Config
+from pdf_utils import crop_whitespace
 from remarkable import RemarkableUploader
 
 
@@ -74,6 +75,7 @@ class NYTCrosswordProcessor:
 
         temp_path.replace(output_path)
         self.logger.info("Downloaded PDF: %s", output_path)
+        crop_whitespace(output_path)
         return output_path
 
     def run(self) -> int:
